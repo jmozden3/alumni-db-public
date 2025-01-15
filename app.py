@@ -1,16 +1,16 @@
 #importing the necessary libraries
-import os
+# import os
 import pandas as pd
 import re
 from geopy.geocoders import Nominatim
 # from jupyter_dash import JupyterDash
 from dash import Dash, dcc, html, Input, Output, dash_table
 import plotly.express as px
-# import dash_auth
+# import dash_auth #only necessary if you need to auth in the app itself
 # from flask import Flask
 # from dotenv import load_dotenv
 
-###this is used for password protection inside the application itself
+###this code block is used for password protection inside the application itself
 ###since I can pw protect through python anywhere deployment, I will not use this for now
 
 # # Load environment variables from .env file
@@ -39,9 +39,11 @@ import plotly.express as px
 #     VALID_USERNAME_PASSWORD_PAIRS
 # )
 
+###end auth code block
+
 #data cleansing and preparation
-file_path = "Rugby Alumni Database Form (Responses).xlsx"
-df = pd.read_excel(file_path)
+file_path = "alumni_data.csv"
+df = pd.read_csv(file_path)
 df = df.dropna(how='all')
 df['Current Company'].fillna("N/A",inplace=True)
 
@@ -52,7 +54,7 @@ df.rename(columns={
     "Current Company": "Company",
     "Current Position / Title": "Position",
     "Are you open to being contacted by current students in the club for recruiting-related purposes, such as coffee chats or networking? ": "Open to Contact",
-    "Would you like to stay informed about the CBS Rugby Football Club's activities and updates throughout the year?": "Receive Updates",
+    "Would you like to stay informed about the club's activities and updates throughout the year?": "Receive Updates",
     "Favorite rugby position? (name)": "Favorite Position",
     "Any other comments you would like to make? (Questions, suggestions, nostalgia, etc)": "Comments"
 }, inplace=True)
@@ -100,26 +102,7 @@ location_mapping = {
     "NYC/Northern NJ": "New York, NY",
     "Northern NJ": "Newark, NJ",
     "Jersey City, New Jersey, USA": "Jersey City, NJ",
-    "Montreal, Canada": "Montreal, QC",
-    "Boston, MA - Austin, TX": "Boston, MA",  # Prioritized one location
-    "Boston": "Boston, MA",
-    "Philadelphia": "Philadelphia, PA",
-    "Baltimore": "Baltimore, MD",
-    "Washington, DC": "Washington, DC",
-    "Morristown NJ": "Morristown, NJ",
-    "Springfield MA": "Springfield, MA",
-    "Central NY State": "Syracuse, NY",  # Example: Replaced with a central city
-    "Houston": "Houston, TX",
-    "Seattle": "Seattle, WA",
-    "Seattle, WA": "Seattle, WA",  # Keep consistent formatting
-    "Jakarta, Indonesia ": "Jakarta, Indonesia",  # Remove trailing spaces
-    "Basel Switzerland ": "Basel, Switzerland",  # Fix spacing issues
-    "Buenos Aires, Argentina": "Buenos Aires, Argentina",  # Already clean
-    "London": "London, UK",
-    "Toronto": "Toronto, ON",
-    "New York, NY (near Union Square 3d/wk)": "New York, NY",
-    "NYC Metro (Connecticut)": "New York, NY", #this guy works in NYC
-    "JBeaufort SC": "Beaufort, SC"
+    "Montreal, Canada": "Montreal, QC"
     # Add more mappings as needed here...
 }
 
@@ -187,7 +170,7 @@ def render_tab_1():
                 html.Div([
                     # Left Logo
                     html.Img(
-                        src="/assets/cbs_rugby_logo.jpg",
+                        src="/assets/smiley_face_logo.jpg",
                         style={"height": "100px", "margin-right": "20px"}
                     ),
             
@@ -204,7 +187,7 @@ def render_tab_1():
             
                     # Right Logo
                     html.Img(
-                        src="/assets/cbs_rugby_logo.jpg",
+                        src="/assets/smiley_face_logo.jpg",
                         style={"height": "100px", "margin-left": "20px"}
                     ),
                 ], style={
@@ -465,7 +448,7 @@ def render_tab_2():
             html.Div([
                 # Left Logo
                 html.Img(
-                    src="/assets/cbs_rugby_logo.jpg",
+                    src="/assets/smiley_face_logo.jpg",
                     style={"height": "100px", "margin-right": "20px"}
                 ),
                 # Header Text
@@ -480,7 +463,7 @@ def render_tab_2():
                 ),
                 # Right Logo
                 html.Img(
-                    src="/assets/cbs_rugby_logo.jpg",
+                    src="/assets/smiley_face_logo.jpg",
                     style={"height": "100px", "margin-left": "20px"}
                 ),
             ], style={
