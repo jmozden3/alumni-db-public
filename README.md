@@ -2,23 +2,44 @@
 
 ## Overview
 
-This repository's python code (app.py) is an interactive web-based dashboard built with Python and Plotly Dash to explore an alumni database. The dashboard features search and filter functionality for fields such as industry, graduation year, company, and location. It also includes visualizations for most popular industries, grads by city, and more. The app supports iterative data updates via linked Google Sheets or Excel files. 
+This repository features an interactive web-based dashboard to explore an alumni database.
 
-This is a perfect beginner application for any organizations looking to work with their alumni information in an accessible and interactive way. I was originally inspired to do this for my grad school's rugby team and thought it could be applied to any group. 
+It currently supports two implementations:
+1.  **Streamlit App (Recommended)**: A modern, feature-rich dashboard with an AI assistant (`streamlit_app.py`).
+2.  **Dash App (Legacy)**: The original implementation using Plotly Dash (`app.py`).
 
-This is far from a finished product so feel free to develop or adjust in any way you see fit. I will continue to update this repo as I update my own app. 
+The dashboard features search and filter functionality for fields such as industry, graduation year, company, and location. It includes visualizations for industries, geography, and more.
 
-## Implementation
+### New Feature: AI Assistant
+The Streamlit version includes an AI-powered chat interface. You can ask questions like "Who works in Finance in NYC?" or "List all Scrum Halves" and get answers based on the database.
 
-1. Clone repository or download files locally
-2. pip install -r requirements.txt in your environment
-3. Run application app.py
-4. Deploy app (I used pythonanywhere but you can use whatever you feel most comfortable with)
+## Implementation (Streamlit)
+
+1.  Clone repository or download files locally.
+2.  Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  **API Key Setup (Optional but recommended for AI features):**
+    *   Create a `.env` file in the root directory.
+    *   Add your OpenAI API key: `OPENAI_API_KEY=sk-...`
+    *   *Note: If you don't set this, the app will ask for the key in the sidebar.*
+4.  Run the application:
+    ```bash
+    streamlit run streamlit_app.py
+    ```
+
+## Implementation (Legacy Dash App)
+
+1.  Run application:
+    ```bash
+    python app.py
+    ```
 
 ## Considerations
 
-- To get the data I used a google form and downloaded the results as a .csv. Ensure your column names match up with the names of the columns in the code, or adjust them to your preference. See 'Other Resources' for the questions used, or view the .csv file.
-- Change the photo in the assets folder and change the asset path code to adjust your picture in the application
+-   **Data Source**: The app uses `alumni_data.csv`. Ensure your column names match the expected format (see the CSV file or code).
+-   **Security**: A `.gitignore` file is included to ensure your `.env` file (containing your API key) is **not** pushed to GitHub.
 
 ## Other Resources
 
