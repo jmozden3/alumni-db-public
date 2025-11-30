@@ -2,6 +2,12 @@
 
 ## Overview
 
+This repository features an interactive web-based dashboard to explore an alumni database, built with **Streamlit**.
+
+The dashboard features search and filter functionality for fields such as industry, graduation year, company, and location. It includes visualizations for industries, geography, and more.
+
+### AI Assistant
+The app includes an integrated AI-powered chat interface. You can ask questions like "Who works in Finance in NYC?" or "List all Scrum Halves" and get answers based on the database. This feature is available directly in the Directory tab.
 This repository features an interactive web-based dashboard to explore an alumni database.
 
 It currently supports two implementations:
