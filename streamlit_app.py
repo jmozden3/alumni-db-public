@@ -93,6 +93,7 @@ st.title("🎓 Alumni Database")
 
 # Tabs
 tab1, tab2 = st.tabs(["Directory", "Insights"])
+tab1, tab2, tab3 = st.tabs(["Directory", "Insights", "AI Assistant"])
 
 # --- TAB 1: Directory ---
 with tab1:
@@ -308,3 +309,67 @@ with tab2:
         color_continuous_scale="Blues"
     )
     st.plotly_chart(fig_year)
+
+# --- TAB 3: AI Assistant ---
+with tab3:
+    st.header("🤖 AI Assistant")
+    st.write("Ask questions about the alumni data! (e.g., 'Who works in Finance in NYC?', 'List all Scrum Halves')")
+
+    # API Key Handling
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        api_key = st.text_input("Enter OpenAI API Key", type="password")
+
+    if not api_key:
+        st.warning("Please enter an OpenAI API key to use the AI features.")
+    else:
+        # Chat Interface
+        if "messages" not in st.session_state:
+            st.session_state.messages = []
+
+        for message in st.session_state.messages:
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
+
+        if prompt := st.chat_input("Ask a question..."):
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            with st.chat_message("user"):
+                st.markdown(prompt)
+
+            with st.chat_message("assistant"):
+                message_placeholder = st.empty()
+
+                try:
+                    from openai import OpenAI
+                    client = OpenAI(api_key=api_key)
+
+                    # Prepare context
+                    # For a small dataset, we can pass the CSV content directly or a summary.
+                    # Since it's small (~50 rows based on plan), we can pass the CSV.
+                    csv_string = df.to_csv(index=False)
+
+                    system_prompt = f"""
+                    You are a helpful assistant for an alumni database.
+                    Here is the data in CSV format:
+
+                    {csv_string}
+
+                    Answer the user's question based ONLY on this data.
+                    If the answer is a list of people, format it nicely.
+                    If you can't find the answer, say so.
+                    """
+
+                    response = client.chat.completions.create(
+                        model="gpt-3.5-turbo", # or gpt-4o
+                        messages=[
+                            {"role": "system", "content": system_prompt},
+                            {"role": "user", "content": prompt}
+                        ]
+                    )
+
+                    answer = response.choices[0].message.content
+                    message_placeholder.markdown(answer)
+                    st.session_state.messages.append({"role": "assistant", "content": answer})
+
+                except Exception as e:
+                    st.error(f"Error: {str(e)}")

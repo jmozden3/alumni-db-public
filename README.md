@@ -8,8 +8,18 @@ The dashboard features search and filter functionality for fields such as indust
 
 ### AI Assistant
 The app includes an integrated AI-powered chat interface. You can ask questions like "Who works in Finance in NYC?" or "List all Scrum Halves" and get answers based on the database. This feature is available directly in the Directory tab.
+This repository features an interactive web-based dashboard to explore an alumni database.
 
-## Implementation
+It currently supports two implementations:
+1.  **Streamlit App (Recommended)**: A modern, feature-rich dashboard with an AI assistant (`streamlit_app.py`).
+2.  **Dash App (Legacy)**: The original implementation using Plotly Dash (`app.py`).
+
+The dashboard features search and filter functionality for fields such as industry, graduation year, company, and location. It includes visualizations for industries, geography, and more.
+
+### New Feature: AI Assistant
+The Streamlit version includes an AI-powered chat interface. You can ask questions like "Who works in Finance in NYC?" or "List all Scrum Halves" and get answers based on the database.
+
+## Implementation (Streamlit)
 
 1.  Clone repository or download files locally.
 2.  Install dependencies:
@@ -23,6 +33,13 @@ The app includes an integrated AI-powered chat interface. You can ask questions 
 4.  Run the application:
     ```bash
     streamlit run streamlit_app.py
+    ```
+
+## Implementation (Legacy Dash App)
+
+1.  Run application:
+    ```bash
+    python app.py
     ```
 
 ## Considerations
