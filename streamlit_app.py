@@ -119,7 +119,7 @@ with tab1:
                 with st.chat_message(message["role"]):
                     st.markdown(message["content"])
 
-            if prompt := st.chat_input("Ask a question..."):
+            if prompt := st.chat_input("Ask a question...", key="chat_input_directory"):
                 st.session_state.messages.append({"role": "user", "content": prompt})
                 with st.chat_message("user"):
                     st.markdown(prompt)
@@ -331,7 +331,7 @@ with tab3:
             with st.chat_message(message["role"]):
                 st.markdown(message["content"])
 
-        if prompt := st.chat_input("Ask a question..."):
+        if prompt := st.chat_input("Ask a question...", key="chat_input_ai"):
             st.session_state.messages.append({"role": "user", "content": prompt})
             with st.chat_message("user"):
                 st.markdown(prompt)

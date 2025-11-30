@@ -35,13 +35,6 @@ The Streamlit version includes an AI-powered chat interface. You can ask questio
     streamlit run streamlit_app.py
     ```
 
-## Implementation (Legacy Dash App)
-
-1.  Run application:
-    ```bash
-    python app.py
-    ```
-
 ## Considerations
 
 -   **Data Source**: The app uses `alumni_data.csv`. Ensure your column names match the expected format (see the CSV file or code).
